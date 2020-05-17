@@ -36,11 +36,38 @@ def wishMe():
 
     checkBirthday()
 
-    speak("I am Jarvis Sir. Please tell me how may I help you")       
+    speak("I am Jarvis Sir. Please tell me how may I help you")     
 
+def takecommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening........")
+        r.pause_threshold = 1 
+        audio = r.listen(source)
+    try:
+        print("Recognising....")
+        query = r.recognize_google(audio, language='en-in')
+        print(f"You said: {query}\n")
+    
+    except Exception as e:
+        print("Say that again Please.....")
+        return "None"
+
+    return query
 
 if __name__ == "__main__":
-    date = date.today()
+    date=date.today()
     speak("Hi Adnan")
     wishMe()
-    
+    while True:
+        query = takecommand().lower()
+        if "name" in query and "my" in query:
+            speak("Your name is Adnan Khan")
+        if "name" in query and "your" in query:
+            speak("My name is Jarvis")
+
+        if "exit" in query or "out" in query or "close" in query:
+            speak("Good Bye Adnan")
+            break
+        
+
