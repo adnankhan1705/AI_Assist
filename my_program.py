@@ -4,13 +4,15 @@ import datetime
 import wikipedia
 import webbrowser
 import os
+import subprocess
+import time
+
 from datetime import date
 
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 rate = engine.getProperty('rate')
-#print(voices)
 engine.setProperty('voice', voices[0].id)
 engine.setProperty('rate', 150)
 
@@ -24,6 +26,9 @@ def checkBirthday():
         speak("Hey Buddy")
         speak("It's your Birth Day")
         speak("Happy Birthday")
+        os.startfile('C:/Users/Dell/Downloads/birth/birth.mp4')
+        time.sleep(40)
+        os.system("TASKKILL /F /IM vlc.exe")
 
 
 def wishMe():
@@ -47,6 +52,7 @@ def takecommand():
         print("Listening........")
         r.pause_threshold = 1 
         audio = r.listen(source)
+        
     try:
         print("Recognising....")
         query = r.recognize_google(audio, language='en-in')
@@ -60,6 +66,7 @@ def takecommand():
 
 if __name__ == "__main__":
     date=date.today()
+    birth_dir = 'C:/Users/Dell/Downloads/birth/birth.mp4'
     chromedir = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     speak("Hi Adnan")
     wishMe()
