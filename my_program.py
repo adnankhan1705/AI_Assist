@@ -26,6 +26,8 @@ def checkBirthday():
         speak("Hey Buddy")
         speak("It's your Birth Day")
         speak("Happy Birthday")
+        
+def play_bday_song():
         os.startfile('C:/Users/Dell/Downloads/birth/birth.mp4')
         time.sleep(40)
         os.system("TASKKILL /F /IM vlc.exe")
@@ -50,6 +52,7 @@ def takecommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening........")
+        r.energy_threshold=600
         r.pause_threshold = 1 
         audio = r.listen(source)
         
@@ -92,7 +95,10 @@ if __name__ == "__main__":
             else:
                 webbrowser.open("facebook.com")
             
-
+        if 'birthday' in query or 'birth' in query:
+            if ('play' in query or 'open' in query) and 'song' in query:
+                play_bday_song()        
+        
         elif "exit" in query or "out" in query or "close" in query:
             if 'internet explorer' in query:
                 os.system("TASKKILL /F /IM iexplore.exe")
